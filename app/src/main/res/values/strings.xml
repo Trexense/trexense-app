@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Trexense</string>
+    <string name="logo">Logo Splash Screen</string>
+    <string name="icon_welcome">Icon Welcome</string>
+    <string name="welcome">Welcome to Trexense</string>
+    <string name="text_welcome">Find the perfect places that fit your budget</string>
+    <string name="text_signin">Sign In</string>
+    <string name="text_signup">Sign Up</string>
+    <string name="change_password">Change Your Password</string>
+    <string name="img_forgot">Icon Forgot Password</string>
+    <string name="submit">Submit</string>
+    <string name="icon_reset_pass">Ini icon reset password\n</string>
+    <string name="reset_password">Reset with new password</string>
 </resources>

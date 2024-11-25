@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PageWelcome">
+
+    <ImageView
+        android:id="@+id/iv_welcome"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="80dp"
+        android:padding="30dp"
+        app:srcCompat="@drawable/welcome_icon"
+        android:contentDescription="@string/icon_welcome"
+        android:scaleType="centerInside"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="52dp"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintTop_toBottomOf="@id/iv_welcome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_short_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_welcome"
+        android:lines="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="35dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_welcome"/>
+
+
+    <Button
+        android:id="@+id/btn_signin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="@string/text_signin"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textFontWeight="900"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_short_desc" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="@string/text_signup"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textFontWeight="900"
+        android:fontFamily="@font/poppins_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_signin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
