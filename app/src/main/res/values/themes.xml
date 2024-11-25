@@ -5,6 +5,8 @@
     </style>
 
     <style name="Theme.Trexense" parent="Base.Theme.Trexense"/>
-
+    <style name="RoundedButton" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/rounded_button</item>
+    </style>
     <!--    <style name="Theme.Trexense" parent="android:Theme.Material.Light.NoActionBar" />-->
 </resources>
