@@ -1,10 +1,11 @@
-package com.example.trexense
+package com.example.trexense.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.trexense.R
 
 class PageResetPassword : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

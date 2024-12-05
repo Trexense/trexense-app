@@ -1,4 +1,4 @@
-package com.example.trexense
+package com.example.trexense.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.trexense.R
 import com.example.trexense.databinding.ActivityPageWelcomeBinding
-import java.text.Normalizer.Form
+import com.example.trexense.view.login.LoginActivity
+import com.example.trexense.view.register.RegisterActivity
 
 class PageWelcome : AppCompatActivity() {
     private lateinit var binding: ActivityPageWelcomeBinding
@@ -36,11 +38,11 @@ class PageWelcome : AppCompatActivity() {
     }
 
     private fun signUp() {
-        TODO("Not yet implemented")
+        startActivity(Intent(this@PageWelcome, RegisterActivity::class.java))
     }
 
     private fun signIn() {
-        val intent = Intent(this@PageWelcome, PageForgotPassword::class.java)
+        val intent = Intent(this@PageWelcome, LoginActivity::class.java)
         startActivity(intent)
     }
 
