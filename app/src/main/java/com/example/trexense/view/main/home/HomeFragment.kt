@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.ui.layout.Layout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -19,6 +20,7 @@ import com.example.trexense.R
 import com.example.trexense.data.models.ImageItem
 import com.example.trexense.databinding.FragmentHomeBinding
 import com.example.trexense.view.adapter.ImageAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import java.util.UUID
 
 class HomeFragment : Fragment() {
@@ -68,6 +70,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewPager = binding.viewpager2
+
+        setUpTabLayoutWithViewPager()
 
         val imageList = arrayListOf(
             ImageItem(
@@ -140,9 +144,26 @@ class HomeFragment : Fragment() {
         handler.postDelayed(runnable, 3000) // Delay awal 3 detik
     }
 
+    private fun setUpTabLayoutWithViewPager() {
+        binding.viewPagerTab.adapter = DashboardPagerAdapter(this)
+        TabLayoutMediator(binding.tabLayout, binding.viewPagerTab) { tab, position ->
+            tab.text = tabTitles[position]
+        }.attach()
+
+        for (i in 0..2) {
+            val textView = LayoutInflater.from(requireContext()).inflate(R.layout.tab_title, null)
+                as TextView
+            binding.tabLayout.getTabAt(i)?.customView = textView
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
         viewPager.unregisterOnPageChangeCallback(pageChangeListener)
+    }
+
+    companion object {
+        private val tabTitles = arrayListOf("Hotel", "Event")
     }
 }

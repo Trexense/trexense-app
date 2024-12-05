@@ -5,9 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.trexense.R
+import com.example.trexense.data.models.EventItem
+import com.example.trexense.data.models.HotelItem
+import com.example.trexense.databinding.FragmentEventBinding
+import com.example.trexense.databinding.FragmentHotelBinding
+import com.example.trexense.view.adapter.ListEventAdapter
+import com.example.trexense.view.adapter.ListHotelAdapter
 
-// TODO: Rename parameter arguments, choose names that match
+ // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -18,43 +25,62 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class EventFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentEventBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false)
+        _binding = FragmentEventBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment EventFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            EventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val eventList = arrayListOf(
+            EventItem(
+                id = "1",
+                name = "Event 1",
+                price = "Rp. 540.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("img_event", "drawable", context?.packageName)
+            ),
+            EventItem(
+                id = "2",
+                name = "Event 2",
+                price = "Rp. 800.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("image1", "drawable", context?.packageName)
+            ),
+            EventItem(
+                id = "3",
+                name = "Event 3",
+                price = "Rp. 1000.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("image2", "drawable", context?.packageName)
+            ),
+            EventItem(
+                id = "3",
+                name = "Event 4",
+                price = "Rp. 1000.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("image3", "drawable", context?.packageName)
+            )
+        )
+
+        val eventAdapter = ListEventAdapter()
+        binding.rvHotel.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            setHasFixedSize(true)
+            adapter = eventAdapter
+            eventAdapter.submitList(eventList)
+        }
+
     }
+
 }
