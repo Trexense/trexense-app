@@ -32,5 +32,11 @@
     <string name="text_hello">Hi, User</string>
     <string name="text_description_home">Enjoy your journey in Trexense !</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment </string>
+    <string name="text_hotel_fragment">Hotel You Might Like</string>
+    <string name="text_event_fragment">Event Fragment</string>
+    <string name="list_price_hotel">Rp. 540.000.00</string>
+    <string name="list_name_hotel">Hotel Santika</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="text_event_fragmet">Event You Might Like</string>
 </resources>

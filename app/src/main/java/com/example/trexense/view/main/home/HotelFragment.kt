@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.trexense.R
+import com.example.trexense.data.models.HotelItem
+import com.example.trexense.databinding.FragmentHotelBinding
+import com.example.trexense.databinding.ItemHotelBinding
+import com.example.trexense.view.adapter.ListHotelAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,43 +24,57 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class HotelFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentHotelBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hotel, container, false)
+        _binding = FragmentHotelBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HotelFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HotelFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val hoteList = arrayListOf(
+            HotelItem(
+                id = "1",
+                name = "Hotel Santika",
+                price = "Rp. 540.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("hotel_list", "drawable", context?.packageName)
+            ),
+            HotelItem(
+                id = "2",
+                name = "Hotel Bonjour",
+                price = "Rp. 800.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("hotel_list", "drawable", context?.packageName)
+            ),
+            HotelItem(
+                id = "3",
+                name = "Hotel Anggun",
+                price = "Rp. 1000.000, 00",
+                place = "Denpasar, Bali",
+                image = resources.getIdentifier("hotel_list", "drawable", context?.packageName)
+            )
+        )
+
+        val listHotel = ListHotelAdapter()
+        binding.rvHotel.apply {
+            layoutManager = GridLayoutManager(requireActivity(), 2)
+            setHasFixedSize(true)
+            adapter = listHotel
+            listHotel.submitList(hoteList)
+        }
+
     }
+
+
 }
