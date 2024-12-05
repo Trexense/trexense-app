@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,19 +14,30 @@
         android:theme="@style/Theme.Trexense"
         tools:targetApi="31">
         <activity
-            android:name=".PageResetPassword"
+            android:name=".view.main.HomeActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.Trexense"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".view.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".PageForgotPassword"
+            android:name=".view.PageResetPassword"
             android:exported="false" />
         <activity
-            android:name=".PageWelcome"
+            android:name=".view.PageForgotPassword"
             android:exported="false" />
         <activity
-            android:name=".SplashScreen"
-            android:theme="@style/Theme.Trexense"
+            android:name=".view.PageWelcome"
+            android:exported="false" />
+        <activity
+            android:name=".view.register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.SplashScreen"
+            android:exported="true"
             android:label="@string/app_name"
-            android:exported="true">
+            android:theme="@style/Theme.Trexense">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,8 +46,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PageWelcome">
+    tools:context=".view.PageWelcome">
 
     <ImageView
         android:id="@+id/iv_welcome"
@@ -62,9 +62,9 @@
         android:backgroundTint="@color/primary_color"
         android:text="@string/text_signin"
         android:textColor="@color/white"
-        android:padding="12dp"
         android:textAlignment="center"
         android:textAllCaps="false"
+        app:cornerRadius="8dp"
         android:textFontWeight="900"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,9 +80,9 @@
         android:backgroundTint="@color/primary_color"
         android:text="@string/text_signup"
         android:textColor="@color/white"
-        android:padding="12dp"
         android:textAlignment="center"
         android:textAllCaps="false"
+        app:cornerRadius="8dp"
         android:textFontWeight="900"
         android:fontFamily="@font/poppins_medium"
         app:layout_constraintEnd_toEndOf="parent"
