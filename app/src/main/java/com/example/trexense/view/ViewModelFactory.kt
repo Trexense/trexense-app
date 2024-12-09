@@ -8,6 +8,7 @@ import com.example.trexense.di.Injection
 import com.example.trexense.view.login.LoginViewModel
 import com.example.trexense.view.main.MainViewModel
 import com.example.trexense.view.main.home.HomeViewModel
+import com.example.trexense.view.main.plan.PlanViewModel
 import com.example.trexense.view.main.profile.ProfileViewModel
 
 class ViewModelFactory(

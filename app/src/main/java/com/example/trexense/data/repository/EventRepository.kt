@@ -7,9 +7,13 @@ import com.example.trexense.data.EventPagingSource
 import com.example.trexense.data.pref.UserPreference
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
+import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.retrofit.ApiService
+import com.example.trexense.data.utils.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.withContext
 
 class EventRepository private constructor(
     private val apiService: ApiService,
@@ -34,6 +38,22 @@ class EventRepository private constructor(
             ),
             pagingSourceFactory = { EventPagingSource(apiService) }
         ).flow
+    }
+
+
+    suspend fun getPlans(): Result<PlansResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getPlans()
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
     }
 
     companion object {

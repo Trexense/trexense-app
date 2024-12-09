@@ -2,6 +2,7 @@ package com.example.trexense.data.retrofit
 
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.LoginResponse
+import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.RegisterResponse
 import retrofit2.Call
 import retrofit2.http.Field
@@ -32,4 +33,6 @@ interface ApiService {
         @Query("limit") limit: Int = 10
     ) : EventResponse
 
+    @GET("plans")
+    suspend fun getPlans(): PlansResponse
 }

@@ -86,4 +86,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.circleimageview)
     implementation(libs.androidx.paging.runtime.ktx)
+
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 }
