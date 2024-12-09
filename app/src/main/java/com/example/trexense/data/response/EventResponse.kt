@@ -73,5 +73,12 @@ data class DataItem(
 	val startDate: String? = null,
 
 	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
+	val updatedAt: String? = null,
+
+	@field:SerializedName("cost")
+	val price: Int? = 0,
+
+	@field:SerializedName("location")
+	val location: String? = null
+
 ) : Parcelable

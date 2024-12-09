@@ -26,7 +26,7 @@ class EventRepository private constructor(
         }
     }
 
-    fun getEventPage(): Flow<PagingData<DataItem>> {
+    fun getEventPager(): Flow<PagingData<DataItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,

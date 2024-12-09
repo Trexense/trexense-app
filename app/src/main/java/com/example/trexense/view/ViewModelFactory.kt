@@ -3,6 +3,7 @@ package com.example.trexense.view
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.trexense.data.repository.EventRepository
 import com.example.trexense.data.repository.UserRepository
 import com.example.trexense.di.Injection
 import com.example.trexense.view.login.LoginViewModel
@@ -11,7 +12,9 @@ import com.example.trexense.view.main.home.HomeViewModel
 import com.example.trexense.view.main.profile.ProfileViewModel
 
 class ViewModelFactory(
-    private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
+    private val repository: UserRepository,
+    private val eventRepository: EventRepository
+) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -26,7 +29,7 @@ class ViewModelFactory(
             }
 
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(repository) as T
+                HomeViewModel(repository, eventRepository) as T
             }
 
             modelClass.isAssignableFrom(ProfileViewModel::class.java) -> {
@@ -47,7 +50,8 @@ class ViewModelFactory(
             if (INSTANCE == null) {
                 synchronized(ViewModelFactory::class.java) {
                     INSTANCE = ViewModelFactory(
-                        Injection.provideRepository(context)
+                        Injection.provideRepository(context),
+                        Injection.provideEventRepository(context)
                     )
                 }
             }
