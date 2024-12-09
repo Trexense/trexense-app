@@ -1,8 +1,10 @@
 package com.example.trexense.view.main.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +16,15 @@ import androidx.compose.ui.layout.Layout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.viewpager2.widget.ViewPager2
 import com.example.trexense.R
 import com.example.trexense.data.models.ImageItem
 import com.example.trexense.databinding.FragmentHomeBinding
+import com.example.trexense.view.PageWelcome
+import com.example.trexense.view.ViewModelFactory
 import com.example.trexense.view.adapter.ImageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.UUID
@@ -26,6 +32,7 @@ import java.util.UUID
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var homeViewModel: HomeViewModel
     private lateinit var viewPager: ViewPager2
     private lateinit var pageChangeListener: ViewPager2.OnPageChangeCallback
     private lateinit var handler: Handler
@@ -46,18 +53,13 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
-
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        viewPager = binding.viewpager2
 
 //        val textView: TextView = binding.textHome
 //        homeViewModel.text.observe(viewLifecycleOwner) {
@@ -69,9 +71,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewPager = binding.viewpager2
 
         setUpTabLayoutWithViewPager()
+
+        homeViewModel.getSession().observe(viewLifecycleOwner, { user ->
+            if(!user.isLogin) {
+                startActivity(Intent(requireActivity(), PageWelcome::class.java))
+            } else {
+                val userLogin = user.name ?: "User"
+                val setName = String.format(getString(R.string.text_hello), userLogin)
+                binding.tvHello.text = setName
+            }
+        })
 
         val imageList = arrayListOf(
             ImageItem(
@@ -165,5 +176,6 @@ class HomeFragment : Fragment() {
 
     companion object {
         private val tabTitles = arrayListOf("Hotel", "Event")
+        private const val TAG = "HomeFragment"
     }
 }
