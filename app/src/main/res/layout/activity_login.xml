@@ -44,6 +44,16 @@
         app:layout_constraintTop_toBottomOf="@id/tv_signin"
         app:shapeAppearance="@style/CornerRadiusStyle">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/primary_color"
+            android:visibility="gone"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"/>
+
         <LinearLayout
             android:id="@+id/linear_input_regis"
             android:layout_width="match_parent"

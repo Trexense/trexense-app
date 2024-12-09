@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.trexense.R
 import com.example.trexense.databinding.ActivitySplashScreenBinding
+import com.example.trexense.view.main.HomeActivity
 
 class SplashScreen : AppCompatActivity() {
     private lateinit var splashBinding: ActivitySplashScreenBinding
@@ -29,7 +30,7 @@ class SplashScreen : AppCompatActivity() {
         // Simulasi proses loading
         Handler().postDelayed({
             // Pindah ke halaman welcome
-            val intent = Intent(this@SplashScreen, PageWelcome::class.java)
+            val intent = Intent(this@SplashScreen, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }, 2000) // selama 2 detik
