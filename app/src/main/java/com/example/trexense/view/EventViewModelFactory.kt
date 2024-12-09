@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.trexense.data.repository.EventRepository
 import com.example.trexense.di.Injection
+import com.example.trexense.view.createPlan.CreatePlanViewModel
 import com.example.trexense.view.main.plan.PlanViewModel
 
 class EventViewModelFactory(private val repository: EventRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -14,6 +15,9 @@ class EventViewModelFactory(private val repository: EventRepository) : ViewModel
         return when {
             modelClass.isAssignableFrom(PlanViewModel::class.java) -> {
                 PlanViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(CreatePlanViewModel::class.java) -> {
+                CreatePlanViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
