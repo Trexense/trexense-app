@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.trexense.data.EventPagingSource
 import com.example.trexense.data.pref.UserPreference
+import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.PlansResponse
@@ -45,6 +46,25 @@ class EventRepository private constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.getPlans()
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun createPlan(
+        name: String,
+        startDate: String,
+        endDate: String
+    ): Result<CreatePlanResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.createPlan(name, startDate, endDate)
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {

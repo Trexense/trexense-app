@@ -1,5 +1,6 @@
 package com.example.trexense.data.retrofit
 
+import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.LoginResponse
 import com.example.trexense.data.response.PlansResponse
@@ -35,4 +36,12 @@ interface ApiService {
 
     @GET("plans")
     suspend fun getPlans(): PlansResponse
+
+    @FormUrlEncoded
+    @POST("plans/create")
+    suspend fun createPlan(
+        @Field("name") name: String,
+        @Field("startDate") startDate: String,
+        @Field("endDate") endDate: String,
+    ): CreatePlanResponse
 }

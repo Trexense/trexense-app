@@ -1,17 +1,17 @@
 package com.example.trexense.view.main.plan
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trexense.data.utils.Result
 import com.example.trexense.databinding.FragmentPlanBinding
+import com.example.trexense.view.createPlan.CreatePlanActivity
 import com.example.trexense.view.EventViewModelFactory
 
 class PlanFragment : Fragment() {
@@ -45,6 +45,10 @@ class PlanFragment : Fragment() {
         }
         viewModel.getPlans()
         observeViewModel()
+        binding.add.setOnClickListener {
+            val intent = Intent(requireContext(), CreatePlanActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun observeViewModel() {
@@ -69,6 +73,11 @@ class PlanFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getPlans()
     }
 
     override fun onDestroyView() {
