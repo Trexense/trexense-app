@@ -34,6 +34,7 @@ class ViewModelFactory(
                 ProfileViewModel(repository) as T
             }
 
+
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
     }

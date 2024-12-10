@@ -5,6 +5,7 @@ import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.LoginResponse
 import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.RegisterResponse
+import com.example.trexense.data.response.SearchResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -44,4 +45,9 @@ interface ApiService {
         @Field("startDate") startDate: String,
         @Field("endDate") endDate: String,
     ): CreatePlanResponse
+
+    @GET("hotels/search")
+    suspend fun searchHotel(
+        @Query("name") name: String
+    ): SearchResponse
 }

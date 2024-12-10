@@ -9,6 +9,7 @@ import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.PlansResponse
+import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.retrofit.ApiService
 import com.example.trexense.data.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -65,6 +66,23 @@ class EventRepository private constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.createPlan(name, startDate, endDate)
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun searchHotel(
+        name: String
+    ): Result<SearchResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.searchHotel(name)
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {
