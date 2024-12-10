@@ -4,21 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.ui.layout.Layout
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.viewpager2.widget.ViewPager2
 import com.example.trexense.R
 import com.example.trexense.data.models.ImageItem
@@ -26,6 +19,7 @@ import com.example.trexense.databinding.FragmentHomeBinding
 import com.example.trexense.view.PageWelcome
 import com.example.trexense.view.ViewModelFactory
 import com.example.trexense.view.adapter.ImageAdapter
+import com.example.trexense.view.main.search.SearchActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import java.util.UUID
 
@@ -72,6 +66,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+        binding.search.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
+            startActivity(intent)
+        }
         setUpTabLayoutWithViewPager()
 
         homeViewModel.getSession().observe(viewLifecycleOwner, { user ->

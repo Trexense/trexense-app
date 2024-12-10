@@ -7,6 +7,7 @@ import com.example.trexense.data.repository.EventRepository
 import com.example.trexense.di.Injection
 import com.example.trexense.view.createPlan.CreatePlanViewModel
 import com.example.trexense.view.main.plan.PlanViewModel
+import com.example.trexense.view.main.search.SearchViewModel
 
 class EventViewModelFactory(private val repository: EventRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -18,6 +19,9 @@ class EventViewModelFactory(private val repository: EventRepository) : ViewModel
             }
             modelClass.isAssignableFrom(CreatePlanViewModel::class.java) -> {
                 CreatePlanViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
+                SearchViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

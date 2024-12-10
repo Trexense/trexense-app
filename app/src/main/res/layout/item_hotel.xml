@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/iv_hotel"
             android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             app:srcCompat="@drawable/hotel_list"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
