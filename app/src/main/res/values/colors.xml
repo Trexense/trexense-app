@@ -11,4 +11,5 @@
     <color name="on_primary_color">#CD06AEAF</color>
     <color name="abu">#9BA1A1</color>
     <color name="salmon">#FE6E6E</color>
+    <color name="placeholder">#6FB6B6B6</color>
 </resources>

@@ -3,13 +3,20 @@ package com.example.trexense.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.trexense.data.EventPagingSource
 import com.example.trexense.data.pref.UserPreference
+import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
+import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.retrofit.ApiService
+import com.example.trexense.data.utils.Result
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class EventRepository private constructor(
     private val apiService: ApiService,
@@ -20,7 +27,11 @@ class EventRepository private constructor(
         try {
             userPreference.getSession().firstOrNull()?.token
                 ?: throw NullPointerException("Token is null")
-            return apiService.getEvent()
+            val result = withContext(Dispatchers.IO) {
+                apiService.getEvent()
+            }
+
+            return result
         }catch (e: Exception) {
             throw e
         }
@@ -36,6 +47,48 @@ class EventRepository private constructor(
         ).flow
     }
 
+
+    suspend fun getPlans(): Result<PlansResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getPlans()
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun createPlan(
+        name: String,
+        startDate: String,
+        endDate: String
+    ): Result<CreatePlanResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.createPlan(name, startDate, endDate)
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+//    suspend fun getListEvent(page: Int, limit: Int)  {
+//        try {
+//            userPreference.getSession().firstOrNull()?.token
+//                ?: throw NullPointerException("Token is null")
+//             return apiService.getEvent(page, limit)
+//        }
+//    }
     companion object {
         fun getInstance(apiService: ApiService, userPreference: UserPreference) : EventRepository {
             return EventRepository(apiService, userPreference)

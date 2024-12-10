@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Base.Theme.Trexense" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="Theme.Trexense" parent="Base.Theme.Trexense"/>
+    <style name="Theme.Trexense" parent="Base.Theme.Trexense" />
+
     <style name="RoundedButton" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/rounded_button</item>
     </style>
+
     <style name="CornerRadiusStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">30dp</item>
@@ -18,5 +21,14 @@
         <item name="android:textSize">25sp</item>
         <item name="android:fontFamily">@font/poppins_bold</item>
     </style>
+
+    <style name="Theme.Trexense.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Trexense.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Trexense.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--    <style name="Theme.Trexense" parent="android:Theme.Material.Light.NoActionBar" />-->
 </resources>

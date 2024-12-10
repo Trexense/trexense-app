@@ -8,7 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.cachedIn
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.trexense.R
 import com.example.trexense.data.models.EventItem
@@ -19,6 +22,7 @@ import com.example.trexense.view.PageWelcome
 import com.example.trexense.view.ViewModelFactory
 import com.example.trexense.view.adapter.ListEventAdapter
 import com.example.trexense.view.adapter.ListHotelAdapter
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -86,44 +90,89 @@ class EventFragment : Fragment() {
 //        )
 
         eventAdapter = ListEventAdapter()
-        
-        viewModel.isLoading.observe(requireActivity()) { value -> 
+
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { value ->
             showLoading(value)
         }
 
-        viewModel.getSession().observe(requireActivity()) { user ->
-            Log.d("EventFragment", "cek token : ${user.token} ")
-            if (!user.isLogin || user.token.isEmpty()) {
-                startActivity(Intent(requireActivity(), PageWelcome::class.java))
+        viewModel.getSession().observe(viewLifecycleOwner) {user ->
+            Log.d("INFOTOKEN", "token: ${user?.token} ")
+            if(user != null && user.isLogin && user.token.isNotEmpty()) {
+                viewModel.getListEvent(user.token)
             } else {
-                if (user.token.isNotEmpty()) {
-                    viewLifecycleOwner.lifecycleScope.launch {
-                        binding.progressBar.visibility = View.VISIBLE
-                        try {
-                            viewModel.getEventPager().collectLatest { pagingData ->
-                                eventAdapter.submitData(pagingData)
-                            }
-                        } catch (e: Exception) {
-                            Log.e("EventFragment", "Error gettis events: ${e.message}", e)
-                        }finally {
-                            binding.progressBar.visibility = View.GONE
-                        }
-                    }
-                    binding.progressBar.visibility = View.GONE
-                } else {
-                    startActivity(Intent(requireActivity(), PageWelcome::class.java))
-                }
+                startActivity(Intent(requireActivity(), PageWelcome::class.java))
             }
         }
 
-        setupRecyclerView()
+        loadDataEvent()
+
+//        viewModel.getSession().observe(viewLifecycleOwner) { user ->
+//            Log.d("EventFragment", "cek token : ${user.token} ")
+//            if (!user.isLogin || user.token.isEmpty()) {
+//                startActivity(Intent(requireActivity(), PageWelcome::class.java))
+//            } else {
+//                if (user.token.isNotEmpty()) {
+//
+//                    viewModel.getListEvent(user.token)
+//
+//                    viewModel.dataevents.observe(viewLifecycleOwner) { events ->
+//                        if (events.isNotEmpty() && events != null) {
+//                            binding.rvHotel.apply {
+//                                layoutManager = GridLayoutManager(requireActivity(), 2)
+//                                setHasFixedSize(true)
+//                                adapter = eventAdapter
+//                            }
+//                            eventAdapter.submitList(events)
+//                        } else {
+//                            Log.d("EventFragment", "getData: event data null ")
+//                        }
+//                    }
+//
+//                } else {
+//                    startActivity(Intent(requireActivity(), PageWelcome::class.java))
+//                }
+//            }
+//        }
+
+//        setupRecyclerView()
+
+
+//                    viewLifecycleOwner.lifecycleScope.launch {
+//                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//
+//                            binding.progressBar.visibility = View.VISIBLE
+//                            try {
+//                                viewModel.getEventPager()
+//                                    .cachedIn(viewLifecycleOwner.lifecycleScope)
+//                                    .collect { pagingData ->
+//                                        Log.d("EventFragment", "pagingData : $pagingData ")
+//                                        eventAdapter.submitData(pagingData)
+//                                    }
+//                            } catch (e: Exception) {
+//                                Log.e("EventFragment", "Error gettis events: ${e.message}", e)
+//                            } finally {
+//                                binding.progressBar.visibility = View.GONE
+//                            }
+//                        }
+//                    }
 
 
     }
 
-    private fun showLoading(loading: Boolean): Boolean{
-        if (loading) binding.progressBar.visibility = View.VISIBLE else binding.progressBar.visibility = View.GONE
-        return loading
+    private fun loadDataEvent() {
+        viewModel.dataevents.observe(viewLifecycleOwner) { event ->
+            binding.rvHotel.apply {
+                layoutManager = GridLayoutManager(requireActivity(), 2)
+                setHasFixedSize(true)
+                adapter = eventAdapter
+            }
+            eventAdapter.submitList(event)
+        }
+    }
+
+    private fun showLoading(loading: Boolean) {
+        binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
     }
 
     private fun setupRecyclerView() {
@@ -136,9 +185,7 @@ class EventFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getEvents()
-        }
+        loadDataEvent()
     }
 
 }
