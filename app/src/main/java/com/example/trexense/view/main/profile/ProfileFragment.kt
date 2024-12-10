@@ -55,7 +55,6 @@ class ProfileFragment : Fragment() {
 
         binding.btnLogout.setOnClickListener {
             AlertDialog.Builder(requireActivity()).apply {
-                setTitle("Logout Confirm !")
                 setMessage("Do you want to logout ?")
                 setPositiveButton("Logout") {_, _ ->
                     viewModel.logout()

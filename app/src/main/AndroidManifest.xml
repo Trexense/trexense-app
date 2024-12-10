@@ -18,6 +18,12 @@
             android:name=".view.main.search.SearchActivity"
             android:exported="false" />
         <activity
+            android:name=".view.main.home.DetailEvent"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.home.DetailHotel"
+            android:exported="false" />
+        <activity
             android:name=".view.createPlan.CreatePlanActivity"
             android:exported="false" />
         <activity

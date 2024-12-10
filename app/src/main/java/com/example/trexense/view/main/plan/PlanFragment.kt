@@ -36,8 +36,10 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         planAdapter = PlanAdapter { selectedPlan ->
-            Toast.makeText(requireContext(), "Selected: ${selectedPlan.id}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Selected: ${selectedPlan.id}", Toast.LENGTH_SHORT)
+                .show()
         }
         binding.rcPlan.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -56,9 +58,11 @@ class PlanFragment : Fragment() {
             showLoading(isLoading)
         }
         viewModel.plansResult.observe(viewLifecycleOwner) { result ->
-            when(result) {
+            when (result) {
                 is Result.Loading -> showLoading(true)
-                is Result.Error -> Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
+                is Result.Error -> Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG)
+                    .show()
+
                 is Result.Success -> {
                     val plans = result.data.data
                     planAdapter.submitList(plans)

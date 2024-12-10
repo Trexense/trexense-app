@@ -148,9 +148,9 @@ class HomeFragment : Fragment() {
             val totalItems = imageAdapter.itemCount
             val nextItem = (currentItem + 1) % totalItems
             viewPager.setCurrentItem(nextItem, true)
-            handler.postDelayed(runnable, 3000) // Delay 3 detik
+            handler.postDelayed(runnable, 5000) // Delay 3 detik
         }
-        handler.postDelayed(runnable, 3000) // Delay awal 3 detik
+        handler.postDelayed(runnable, 7000) // Delay awal 3 detik
     }
 
     private fun setUpTabLayoutWithViewPager() {

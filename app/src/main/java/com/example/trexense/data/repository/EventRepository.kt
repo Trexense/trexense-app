@@ -32,7 +32,7 @@ class EventRepository private constructor(
         }
     }
 
-    fun getEventPage(): Flow<PagingData<DataItem>> {
+    fun getEventPager(): Flow<PagingData<DataItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 10,
@@ -76,6 +76,14 @@ class EventRepository private constructor(
             }
         }
     }
+
+    //    suspend fun getListEvent(page: Int, limit: Int)  {
+//        try {
+//            userPreference.getSession().firstOrNull()?.token
+//                ?: throw NullPointerException("Token is null")
+//             return apiService.getEvent(page, limit)
+//        }
+//    }
 
     suspend fun searchHotel(
         name: String
