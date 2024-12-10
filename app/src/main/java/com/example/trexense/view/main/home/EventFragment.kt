@@ -90,8 +90,6 @@ class EventFragment : Fragment() {
 //        )
 
         eventAdapter = ListEventAdapter()
-
-
         viewModel.isLoading.observe(viewLifecycleOwner) { value ->
             showLoading(value)
         }

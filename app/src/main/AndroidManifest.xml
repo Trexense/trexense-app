@@ -15,12 +15,13 @@
         android:theme="@style/Theme.Trexense"
         tools:targetApi="31">
         <activity
-            android:name=".view.main.home.DetailHotel"
-            android:exported="false"
-            android:label="@string/title_activity_detail_hotel"
-            android:theme="@style/Theme.Trexense.NoActionBar" />
+            android:name=".view.main.search.SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".view.main.home.DetailEvent"
+            android:exported="false" />
+        <activity
+            android:name=".view.main.home.DetailHotel"
             android:exported="false" />
         <activity
             android:name=".view.createPlan.CreatePlanActivity"

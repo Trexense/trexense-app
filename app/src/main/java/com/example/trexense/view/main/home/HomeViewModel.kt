@@ -67,16 +67,16 @@ class HomeViewModel(
         }
     }
 
-    fun getEventPager(): Flow<PagingData<DataItem>> {
-        _isLoading.value = true
-        try {
-            _isLoading.value = false
-            return eventRepository.getEventPager()
-        }catch (e: Exception) {
-            _isLoading.value = false
-            throw e
-        }
-    }
+//    fun getEventPager(): Flow<PagingData<DataItem>> {
+//        _isLoading.value = true
+//        try {
+//            _isLoading.value = false
+//            return eventRepository.getEventPager()
+//        }catch (e: Exception) {
+//            _isLoading.value = false
+//            throw e
+//        }
+//    }
 
     fun getListEvent(token: String) {
         viewModelScope.launch {

@@ -3,20 +3,19 @@ package com.example.trexense.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.trexense.data.EventPagingSource
 import com.example.trexense.data.pref.UserPreference
 import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.PlansResponse
+import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.retrofit.ApiService
 import com.example.trexense.data.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 
 class EventRepository private constructor(
     private val apiService: ApiService,
@@ -27,11 +26,7 @@ class EventRepository private constructor(
         try {
             userPreference.getSession().firstOrNull()?.token
                 ?: throw NullPointerException("Token is null")
-            val result = withContext(Dispatchers.IO) {
-                apiService.getEvent()
-            }
-
-            return result
+            return apiService.getEvent()
         }catch (e: Exception) {
             throw e
         }
@@ -82,13 +77,31 @@ class EventRepository private constructor(
         }
     }
 
-//    suspend fun getListEvent(page: Int, limit: Int)  {
+    //    suspend fun getListEvent(page: Int, limit: Int)  {
 //        try {
 //            userPreference.getSession().firstOrNull()?.token
 //                ?: throw NullPointerException("Token is null")
 //             return apiService.getEvent(page, limit)
 //        }
 //    }
+
+    suspend fun searchHotel(
+        name: String
+    ): Result<SearchResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.searchHotel(name)
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
     companion object {
         fun getInstance(apiService: ApiService, userPreference: UserPreference) : EventRepository {
             return EventRepository(apiService, userPreference)
