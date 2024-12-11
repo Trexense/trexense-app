@@ -1,0 +1,30 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/item_day"
+    android:orientation="vertical"
+    android:layout_margin="8dp"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/dayTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Day Title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="4dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_activityDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcHotel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false" />
+</LinearLayout>

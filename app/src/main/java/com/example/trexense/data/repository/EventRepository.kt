@@ -9,6 +9,7 @@ import com.example.trexense.data.pref.UserPreference
 import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
+import com.example.trexense.data.response.PlanDetailResponse
 import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.retrofit.ApiConfig
@@ -97,6 +98,23 @@ class EventRepository private constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.searchHotel(name)
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun getDetailPlan(
+        id: String
+    ): Result<PlanDetailResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.getDetailPlan(id)
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {
