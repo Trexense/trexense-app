@@ -29,6 +29,7 @@
         <activity
             android:name=".view.main.HomeActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_home"
             android:theme="@style/Base.Theme.Trexense" />
         <activity

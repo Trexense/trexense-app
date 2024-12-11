@@ -1,231 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.main.home.DetailEvent">
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/main"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    tools:context=".view.main.home.DetailEvent">-->
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <ImageView
-            android:id="@+id/iv_detail_event"
-            android:layout_width="0dp"
-            android:layout_height="250dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/img_event" />
-
-        <ImageView
-            android:id="@+id/ic_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_detail_event"
-            app:srcCompat="@drawable/ic_arrow_back_white_24" />
-
-        <TextView
-            android:id="@+id/tv_name_event"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:fontFamily="@font/poppins_bold"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@id/iv_detail_event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_detail_event"
-            tools:text="Playlist Festival" />
+            tools:context=".view.main.home.DetailEvent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewEvent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="8dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_name_event"
-            app:layout_constraintStart_toStartOf="@id/tv_name_event"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_event">
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_save_plan" >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/linear_location"
+
+    </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_detail_event"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_event" />
+
+            <ImageView
+                android:id="@+id/ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_detail_event"
+                app:srcCompat="@drawable/ic_arrow_back_white_24" />
+
+            <TextView
+                android:id="@+id/tv_name_event"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp">
+                android:layout_margin="10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="@id/iv_detail_event"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/iv_detail_event"
+                tools:text="Playlist Festival" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewEvent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="8dp"
+                app:layout_constraintEnd_toEndOf="@id/tv_name_event"
+                app:layout_constraintStart_toStartOf="@id/tv_name_event"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_event">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linear_location"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:indeterminate="true"
-                    android:indeterminateTint="@color/primary_color"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:padding="10dp">
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/primary_color"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                <ImageView
-                    android:id="@+id/iv_ticket_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/icon_ticket" />
+                    <ImageView
+                        android:id="@+id/iv_ticket_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_ticket" />
 
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_ticket_price"
-                    app:layout_constraintStart_toEndOf="@id/iv_ticket_price"
-                    app:layout_constraintTop_toTopOf="@id/iv_ticket_price"
-                    tools:text="Rp. 200.000,00" />
+                    <TextView
+                        android:id="@+id/tv_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_ticket_price"
+                        app:layout_constraintStart_toEndOf="@id/iv_ticket_price"
+                        app:layout_constraintTop_toTopOf="@id/iv_ticket_price"
+                        tools:text="Rp. 200.000,00" />
 
-                <ImageView
-                    android:id="@+id/ic_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_ticket_price"
-                    app:srcCompat="@drawable/location_on" />
+                    <ImageView
+                        android:id="@+id/ic_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_ticket_price"
+                        app:srcCompat="@drawable/location_on" />
 
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@id/ic_location"
-                    app:layout_constraintStart_toEndOf="@id/ic_location"
-                    app:layout_constraintTop_toTopOf="@id/ic_location"
-                    tools:text="Jl. Merdeka no 7" />
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/ic_location"
+                        app:layout_constraintStart_toEndOf="@id/ic_location"
+                        app:layout_constraintTop_toTopOf="@id/ic_location"
+                        tools:text="Jl. Merdeka no 7" />
 
-                <TextView
-                    android:id="@+id/tv_nearby"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_ticket_price"
-                    app:layout_constraintEnd_toStartOf="@id/iv_arrow_see"
-                    app:layout_constraintTop_toTopOf="@id/iv_ticket_price"
-                    android:text="see location" />
+                    <TextView
+                        android:id="@+id/tv_nearby"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_ticket_price"
+                        app:layout_constraintEnd_toStartOf="@id/iv_arrow_see"
+                        app:layout_constraintTop_toTopOf="@id/iv_ticket_price"
+                        android:text="see location" />
 
-                <ImageView
-                    android:id="@+id/iv_arrow_see"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_nearby"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/tv_nearby"
-                    app:srcCompat="@drawable/arrow_miring" />
+                    <ImageView
+                        android:id="@+id/iv_arrow_see"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_nearby"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_nearby"
+                        app:srcCompat="@drawable/arrow_miring" />
 
-                <ImageView
-                    android:id="@+id/iv_schedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ic_location"
-                    app:srcCompat="@drawable/ic_schedule" />
+                    <!--                <ImageView-->
+                    <!--                    android:id="@+id/iv_schedule"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_marginTop="10dp"-->
+                    <!--                    android:adjustViewBounds="true"-->
+                    <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                    <!--                    app:layout_constraintTop_toBottomOf="@id/ic_location"-->
+                    <!--                    app:srcCompat="@drawable/ic_schedule" />-->
 
-                <TextView
-                    android:id="@+id/tv_schedule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_schedule"
-                    app:layout_constraintStart_toEndOf="@id/iv_schedule"
-                    app:layout_constraintTop_toTopOf="@id/iv_schedule"
-                    tools:text="Sabtu, 7 desember 2024" />
+                    <TextView
+                        android:id="@+id/tv_label_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:text="Start Date :"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ic_location"
+                        />
 
-                <ImageView
-                    android:id="@+id/iv_social_media"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:adjustViewBounds="true"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_schedule"
-                    app:srcCompat="@drawable/ic_instagram" />
+                    <TextView
+                        android:id="@+id/tv_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_label_start_date"
+                        app:layout_constraintStart_toEndOf="@id/tv_label_start_date"
+                        app:layout_constraintTop_toTopOf="@id/tv_label_start_date"
+                        tools:text="Sabtu, 7 desember 2024" />
 
-                <TextView
-                    android:id="@+id/tv_social_media"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@id/iv_social_media"
-                    app:layout_constraintStart_toEndOf="@id/iv_social_media"
-                    app:layout_constraintTop_toTopOf="@id/iv_social_media"
-                    tools:text="@string/text_sosmed" />
+                    <TextView
+                        android:id="@+id/tv_label_end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        android:text="End Date :"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_label_start_date"
+                        />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_label_end_date"
+                        app:layout_constraintStart_toEndOf="@id/tv_label_end_date"
+                        app:layout_constraintTop_toTopOf="@id/tv_label_end_date"
+                        tools:text="Sabtu, 10 desember 2024" />
 
-        </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:id="@+id/iv_social_media"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:adjustViewBounds="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_label_end_date"
+                        app:srcCompat="@drawable/ic_instagram" />
 
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardViewEvent"
-            tools:text="@string/text_desc" />
+                    <TextView
+                        android:id="@+id/tv_social_media"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_social_media"
+                        app:layout_constraintStart_toEndOf="@id/iv_social_media"
+                        app:layout_constraintTop_toTopOf="@id/iv_social_media"
+                        tools:text="@string/text_sosmed" />
 
-        <Button
-            android:id="@+id/btn_save_plan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Save to plan"
-            android:backgroundTint="@color/primary_color"
-            app:cornerRadius="2dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tv_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewEvent"
+                tools:text="@string/text_desc" />
+
+            <Button
+                android:id="@+id/btn_save_plan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Save to plan"
+                android:backgroundTint="@color/primary_color"
+                app:cornerRadius="2dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+<!--</ScrollView>-->

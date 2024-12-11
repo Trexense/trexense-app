@@ -33,6 +33,8 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var name: String
 
+    private lateinit var idUser: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -81,9 +83,15 @@ class LoginActivity : AppCompatActivity() {
                     name = value.toString()
                 }
 
+                viewModel.userID.observe(this@LoginActivity) { value ->
+                    idUser = value.toString()
+                }
+
+
                 viewModel.isToken.observe(this@LoginActivity) { token ->
                     Log.d(TAG, "name User : ${name} ")
-                    viewModel.saveSession(UserModel(name, email, token = token.toString()))
+                    Log.d("USERID", ": ${idUser ?: "null"} ")
+                    viewModel.saveSession(UserModel(idUser, name, email, token = token.toString()))
                 }
 
                 viewModel.isLoginSuccess.observe(this@LoginActivity) { success ->
