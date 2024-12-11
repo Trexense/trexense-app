@@ -25,6 +25,9 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
     private val _snackBarText = MutableLiveData<Alert<String>>()
     val snackBarText: LiveData<Alert<String>> = _snackBarText
 
+    private val _userID = MutableLiveData<String?>()
+    val userID: LiveData<String?> = _userID
+
     private val _nameUser = MutableLiveData<String?>()
     val nameUser: LiveData<String?> = _nameUser
 
@@ -45,6 +48,7 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
                 if (response.isSuccessful && responseBody != null) {
                     Log.e(TAG, " Response: Token ${responseBody.tokens?.access}, Nama User : ${responseBody.data?.name} ")
                     _nameUser.value = responseBody.data?.name
+                    _userID.value = responseBody.data?.id
                     _isToken.value = responseBody.tokens?.access
                     _isLoginSuccess.value = true
                     _snackBarText.value = Alert(responseBody.message.toString())

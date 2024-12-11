@@ -72,6 +72,9 @@ data class DataItem(
 	@field:SerializedName("startDate")
 	val startDate: String? = null,
 
+	@field:SerializedName("validUntil")
+	val validUntil: String? = null,
+
 	@field:SerializedName("updatedAt")
 	val updatedAt: String? = null,
 

@@ -3,6 +3,7 @@ package com.example.trexense.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.trexense.data.EventPagingSource
 import com.example.trexense.data.pref.UserPreference
 import com.example.trexense.data.response.CreatePlanResponse
@@ -10,6 +11,7 @@ import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.SearchResponse
+import com.example.trexense.data.retrofit.ApiConfig
 import com.example.trexense.data.retrofit.ApiService
 import com.example.trexense.data.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +48,9 @@ class EventRepository private constructor(
     suspend fun getPlans(): Result<PlansResponse> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.getPlans()
+                val token = userPreference.getSession().firstOrNull()?.token
+                    ?: throw NullPointerException("Token is null")
+                val response = ApiConfig.getApiService(token).getPlans()
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {
@@ -65,7 +69,9 @@ class EventRepository private constructor(
     ): Result<CreatePlanResponse> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = apiService.createPlan(name, startDate, endDate)
+                val token = userPreference.getSession().firstOrNull()?.token
+                    ?: throw NullPointerException("Token is null")
+                val response = ApiConfig.getApiService(token).createPlan(name, startDate, endDate)
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {
