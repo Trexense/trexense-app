@@ -1,5 +1,6 @@
 package com.example.trexense.view.planDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,7 @@ import com.example.trexense.R
 import com.example.trexense.data.utils.Result
 import com.example.trexense.databinding.ActivityPlanDetailBinding
 import com.example.trexense.view.EventViewModelFactory
+import com.example.trexense.view.createActivity.CreateAktivitasActivity
 import com.example.trexense.view.main.plan.PlanViewModel
 
 class PlanDetailActivity : AppCompatActivity() {
@@ -38,6 +40,8 @@ class PlanDetailActivity : AppCompatActivity() {
 
         setupRecyclerView()
         val id = intent.getStringExtra("PLAN_ID")
+        val title = intent.getStringExtra("PLAN_NAME")
+        binding.txtPlan.text = title
         viewModel.getDetailPlan(id.toString())
         observeViewModel()
     }
@@ -45,7 +49,9 @@ class PlanDetailActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         planDayAdapter = PlanDayAdapter { item ->
             // Handle item click here, for example:
-            Toast.makeText(this, "Clicked on: Day ${item.day}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this@PlanDetailActivity, CreateAktivitasActivity::class.java)
+            intent.putExtra("DAY_ID", item.id)
+            startActivity(intent)
         }
         binding.rcDay.apply {
             layoutManager = LinearLayoutManager(this@PlanDetailActivity)
@@ -67,6 +73,12 @@ class PlanDetailActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val id = intent.getStringExtra("PLAN_ID").toString()
+        viewModel.getDetailPlan(id)
     }
 
     private fun showLoading(isLoading: Boolean) {

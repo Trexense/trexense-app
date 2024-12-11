@@ -40,6 +40,7 @@ class PlanFragment : Fragment() {
         planAdapter = PlanAdapter { selectedPlan ->
             val intent = Intent(requireContext(), PlanDetailActivity::class.java)
             intent.putExtra("PLAN_ID", selectedPlan.id)
+            intent.putExtra("PLAN_NAME", selectedPlan.name)
             startActivity(intent)
         }
         binding.rcPlan.apply {
@@ -49,6 +50,10 @@ class PlanFragment : Fragment() {
         viewModel.getPlans()
         observeViewModel()
         binding.add.setOnClickListener {
+            val intent = Intent(requireContext(), CreatePlanActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnCreate.setOnClickListener {
             val intent = Intent(requireContext(), CreatePlanActivity::class.java)
             startActivity(intent)
         }

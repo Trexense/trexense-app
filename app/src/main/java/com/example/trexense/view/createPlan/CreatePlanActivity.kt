@@ -37,6 +37,9 @@ class CreatePlanActivity : AppCompatActivity() {
 
         setupDatePickers()
 
+        binding.backButton.setOnClickListener {
+            finish()
+        }
         binding.saveButton.setOnClickListener {
             val name = binding.planName.text.toString()
             val startDate = binding.startDate.text.toString()

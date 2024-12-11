@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Trexense"
         tools:targetApi="31">
         <activity
+            android:name=".view.createActivity.CreateAktivitasActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.planDetail.PlanDetailActivity"
             android:exported="false" />
         <activity
