@@ -13,6 +13,7 @@ import com.example.trexense.data.utils.Result
 import com.example.trexense.databinding.FragmentPlanBinding
 import com.example.trexense.view.createPlan.CreatePlanActivity
 import com.example.trexense.view.EventViewModelFactory
+import com.example.trexense.view.planDetail.PlanDetailActivity
 
 class PlanFragment : Fragment() {
 
@@ -37,8 +38,10 @@ class PlanFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         planAdapter = PlanAdapter { selectedPlan ->
-            Toast.makeText(requireContext(), "Selected: ${selectedPlan.id}", Toast.LENGTH_SHORT)
-                .show()
+            val intent = Intent(requireContext(), PlanDetailActivity::class.java)
+            intent.putExtra("PLAN_ID", selectedPlan.id)
+            intent.putExtra("PLAN_NAME", selectedPlan.name)
+            startActivity(intent)
         }
         binding.rcPlan.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -47,6 +50,10 @@ class PlanFragment : Fragment() {
         viewModel.getPlans()
         observeViewModel()
         binding.add.setOnClickListener {
+            val intent = Intent(requireContext(), CreatePlanActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnCreate.setOnClickListener {
             val intent = Intent(requireContext(), CreatePlanActivity::class.java)
             startActivity(intent)
         }

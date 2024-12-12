@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.trexense.R
 import com.example.trexense.data.utils.Result
 import com.example.trexense.databinding.ActivitySearchBinding
@@ -19,6 +20,7 @@ class SearchActivity : AppCompatActivity() {
     private val viewModel: SearchViewModel by viewModels {
         EventViewModelFactory.getInstance(this)
     }
+    private lateinit var searchAdapter: SearchAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,6 +32,13 @@ class SearchActivity : AppCompatActivity() {
             insets
         }
 
+        searchAdapter = SearchAdapter { selectedItem ->
+            Toast.makeText(this, selectedItem.name, Toast.LENGTH_SHORT).show()
+        }
+        with(binding.rcSearch) {
+            adapter = searchAdapter
+            layoutManager = LinearLayoutManager(this@SearchActivity)
+        }
         with(binding) {
             searchView.setupWithSearchBar(searchBar)
             searchView
@@ -56,8 +65,8 @@ class SearchActivity : AppCompatActivity() {
                 is Result.Loading -> showLoading(true)
                 is Result.Error -> Toast.makeText(this@SearchActivity, result.error, Toast.LENGTH_SHORT).show()
                 is Result.Success -> {
-                    val hotel = result.data.data.size
-                    Toast.makeText(this@SearchActivity, "Jumlah hotel: $hotel", Toast.LENGTH_SHORT).show()
+                    val hotel = result.data.data
+                    searchAdapter.submitList(hotel)
                 }
             }
         }

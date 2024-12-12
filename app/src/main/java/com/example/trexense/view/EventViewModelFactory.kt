@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.trexense.data.repository.EventRepository
 import com.example.trexense.di.Injection
+import com.example.trexense.view.createActivity.CreateActivityViewModel
 import com.example.trexense.view.createPlan.CreatePlanViewModel
 import com.example.trexense.view.main.plan.PlanViewModel
 import com.example.trexense.view.main.search.SearchViewModel
+import com.example.trexense.view.planDetail.PlanDetailViewModel
 
 class EventViewModelFactory(private val repository: EventRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -22,6 +24,12 @@ class EventViewModelFactory(private val repository: EventRepository) : ViewModel
             }
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
                 SearchViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(PlanDetailViewModel::class.java) -> {
+                PlanDetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(CreateActivityViewModel::class.java) -> {
+                CreateActivityViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

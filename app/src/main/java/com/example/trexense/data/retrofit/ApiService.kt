@@ -1,8 +1,10 @@
 package com.example.trexense.data.retrofit
 
+import com.example.trexense.data.response.AddActivityResponse
 import com.example.trexense.data.response.CreatePlanResponse
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.LoginResponse
+import com.example.trexense.data.response.PlanDetailResponse
 import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.RegisterResponse
 import com.example.trexense.data.response.SearchResponse
@@ -59,6 +61,21 @@ interface ApiService {
     suspend fun updateUser(
         @Path("userId") userId: String,
         @Field("name") name: String ?= "",
-        @Field("email") email: String ?= "") : UserResponse
+        @Field("email") email: String ?= ""
+    ) : UserResponse
 
+    @GET("plans/{id}")
+    suspend fun getDetailPlan(
+        @Path("id") id: String
+    ): PlanDetailResponse
+
+    @FormUrlEncoded
+    @POST("plans/detail/{id_day}/activity")
+    suspend fun addActivity(
+        @Path("id_day") id_day:  String,
+        @Field("name") name: String,
+        @Field("location") location: String,
+        @Field("cost") cost: String,
+        @Field("description") description: String
+    ): AddActivityResponse
 }

@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Trexense"
         tools:targetApi="31">
         <activity
+            android:name=".view.createActivity.CreateAktivitasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.planDetail.PlanDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.search.SearchActivity"
             android:exported="false" />
         <activity
@@ -29,9 +35,9 @@
         <activity
             android:name=".view.main.HomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_home"
-            android:theme="@style/Base.Theme.Trexense" />
+            android:theme="@style/Base.Theme.Trexense"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
