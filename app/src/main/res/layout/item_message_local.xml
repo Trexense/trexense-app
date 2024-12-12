@@ -3,10 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
 
     <ImageView
         android:id="@+id/iv_userProfile"
+        android:src="@drawable/outline_android_24"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:visibility="gone"
@@ -16,7 +18,7 @@
     <TextView
         android:id="@+id/tv_userMessageText"
         style="@style/Base.TextAppearance.AppCompat.Display1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="@drawable/chat_local"
@@ -24,8 +26,11 @@
         android:padding="8dp"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:ellipsize="end"
+        android:breakStrategy="simple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Text Message" />
+        tools:text="Text Mesasdadasdasdasdasdadsaasasdasddasdasdaasdasdasdaasdadsage" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,7 @@ import com.example.trexense.data.response.PlansResponse
 import com.example.trexense.data.response.RegisterResponse
 import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.response.UserResponse
+import com.example.trexense.data.response.ChatResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -78,4 +79,10 @@ interface ApiService {
         @Field("cost") cost: String,
         @Field("description") description: String
     ): AddActivityResponse
+
+    @FormUrlEncoded
+    @POST("plans/itinerary")
+    suspend fun SendChat(
+        @Field("prompt") prompt: String
+    ): ChatResponse
 }
