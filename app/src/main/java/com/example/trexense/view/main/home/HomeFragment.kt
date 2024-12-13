@@ -85,28 +85,16 @@ class HomeFragment : Fragment() {
         val imageList = arrayListOf(
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/866/500/500.jpg?hmac=FOptChXpmOmfR5SpiL2pp74Yadf1T_bRhBF1wJZa9hg"
+                "https://storage.googleapis.com/trexense-capstone/banners/1734016948637-ad928eb5.png"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/270/500/500.jpg?hmac=MK7XNrBrZ73QsthvGaAkiNoTl65ZDlUhEO-6fnd-ZnY"
+                "https://storage.googleapis.com/trexense-capstone/banners/1734017164580-e5dfdba6.png"
             ),
             ImageItem(
                 UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/320/500/500.jpg?hmac=2iE7TIF9kIqQOHrIUPOJx2wP1CJewQIZBeMLIRrm74s"
+                "https://storage.googleapis.com/trexense-capstone/banners/1734015960268-24d340c5.png"
             ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/798/500/500.jpg?hmac=Bmzk6g3m8sUiEVHfJWBscr2DUg8Vd2QhN7igHBXLLfo"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/95/500/500.jpg?hmac=0aldBQ7cQN5D_qyamlSP5j51o-Og4gRxSq4AYvnKk2U"
-            ),
-            ImageItem(
-                UUID.randomUUID().toString(),
-                "https://fastly.picsum.photos/id/778/500/500.jpg?hmac=jZLZ6WV_OGRxAIIYPk7vGRabcAGAILzxVxhqSH9uLas"
-            )
         )
 
         val imageAdapter = ImageAdapter()

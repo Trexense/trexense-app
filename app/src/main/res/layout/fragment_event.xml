@@ -30,6 +30,7 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/primary_color"
             android:visibility="visible"
+            android:layout_marginTop="150dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -16,6 +16,9 @@ class PlanDetailViewModel(private val repository: EventRepository): ViewModel() 
     private val _planDetailResult = MutableLiveData<Result<PlanDetailResponse>>()
     val planDetailResult: MutableLiveData<Result<PlanDetailResponse>> = _planDetailResult
 
+    private val _planName = MutableLiveData<List<String>>()
+    val planName: LiveData<List<String>> = _planName
+
     fun getDetailPlan(id: String) {
         _isLoading.value = true
         viewModelScope.launch {

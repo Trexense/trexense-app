@@ -1,5 +1,6 @@
 package com.example.trexense.view.main.search
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trexense.data.response.DataSearch
 import com.example.trexense.databinding.ItemSearchBinding
+import com.example.trexense.view.main.home.DetailHotel
 
 class SearchAdapter(private val onItemClick: (DataSearch) -> Unit) :
     ListAdapter<DataSearch, SearchAdapter.SearchViewHolder>(DIFF_CALLBACK) {
@@ -18,6 +20,9 @@ class SearchAdapter(private val onItemClick: (DataSearch) -> Unit) :
                 tvName.text = item.name
                 root.setOnClickListener {
                     onItemClick(item)
+                    val intent = Intent(root.context, DetailHotel::class.java)
+                    intent.putExtra(DetailHotel.DATA_HOTEL, item.hotelId)
+                    root.context.startActivity(intent)
                 }
             }
         }
