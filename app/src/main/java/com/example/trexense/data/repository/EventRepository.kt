@@ -12,6 +12,7 @@ import com.example.trexense.data.response.DataItem
 import com.example.trexense.data.response.EventResponse
 import com.example.trexense.data.response.PlanDetailResponse
 import com.example.trexense.data.response.PlansResponse
+import com.example.trexense.data.response.SaveHotelResponse
 import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.retrofit.ApiConfig
 import com.example.trexense.data.retrofit.ApiService
@@ -137,6 +138,24 @@ class EventRepository private constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val response = apiService.addActivity(day_id, name, location, cost, description)
+                if (response.status == 200) {
+                    Result.Success(response)
+                } else {
+                    Result.Error(response.message)
+                }
+            } catch (e: Exception) {
+                Result.Error(e.message.toString())
+            }
+        }
+    }
+
+    suspend fun saveHotel(
+        day_id: String,
+        hotel_id: String
+    ): Result<SaveHotelResponse> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiService.saveHotel(day_id, hotel_id)
                 if (response.status == 200) {
                     Result.Success(response)
                 } else {

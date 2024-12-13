@@ -56,8 +56,11 @@ class DetailHotel : AppCompatActivity() {
             getDetailDataHotel(idHotel)
         }
 
+        val hotelIdSave = intent.getStringExtra("HOTEL_ID_SAVE")
         binding.btnCreatePlan.setOnClickListener {
-            startActivity(Intent(this, CreatePlanHotel::class.java))
+            val intent = Intent(this@DetailHotel, CreatePlanHotel::class.java)
+            intent.putExtra("HOTEL_ID", hotelIdSave)
+            startActivity(intent)
         }
 
     }

@@ -149,7 +149,6 @@
             android:id="@+id/btnCreatePlan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:text="Save to Plan"
             android:backgroundTint="@color/primary_color"
             app:cornerRadius="2dp"

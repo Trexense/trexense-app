@@ -22,6 +22,7 @@ class SearchAdapter(private val onItemClick: (DataSearch) -> Unit) :
                     onItemClick(item)
                     val intent = Intent(root.context, DetailHotel::class.java)
                     intent.putExtra(DetailHotel.DATA_HOTEL, item.hotelId)
+                    intent.putExtra("HOTEL_ID_SAVE", item.id)
                     root.context.startActivity(intent)
                 }
             }

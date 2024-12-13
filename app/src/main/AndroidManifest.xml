@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Trexense"
         tools:targetApi="31">
         <activity
+            android:name=".view.main.createEvent.CreateEventActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.createPlan.CreatePlanHotel"
             android:exported="false" />
         <activity
