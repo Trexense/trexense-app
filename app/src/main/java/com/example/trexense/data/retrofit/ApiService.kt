@@ -10,6 +10,9 @@ import com.example.trexense.data.response.RegisterResponse
 import com.example.trexense.data.response.SearchResponse
 import com.example.trexense.data.response.UserResponse
 import com.example.trexense.data.response.ChatResponse
+import com.example.trexense.data.response.HotelDetailItemResponse
+import com.example.trexense.data.response.HotelItem
+import com.example.trexense.data.response.HotelResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -39,7 +42,7 @@ interface ApiService {
     suspend fun getEvent(
         @Query("page") page: Int = 1,
         @Query("limit") limit: Int = 10
-    ) : EventResponse
+    ): EventResponse
 
     @GET("plans")
     suspend fun getPlans(): PlansResponse
@@ -52,6 +55,15 @@ interface ApiService {
         @Field("endDate") endDate: String,
     ): CreatePlanResponse
 
+    @GET("hotels/recommendation")
+    suspend fun getHotelRecomendation(): HotelResponse
+
+
+    @GET("hotels/{hotelId}")
+    suspend fun getDetailHotel(
+        @Path("hotelId") hotelId: String
+    ): HotelDetailItemResponse
+
     @GET("hotels/search")
     suspend fun searchHotel(
         @Query("name") name: String
@@ -61,9 +73,9 @@ interface ApiService {
     @PATCH("user/{userId}")
     suspend fun updateUser(
         @Path("userId") userId: String,
-        @Field("name") name: String ?= "",
-        @Field("email") email: String ?= ""
-    ) : UserResponse
+        @Field("name") name: String? = "",
+        @Field("email") email: String? = ""
+    ): UserResponse
 
     @GET("plans/{id}")
     suspend fun getDetailPlan(
@@ -73,7 +85,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("plans/detail/{id_day}/activity")
     suspend fun addActivity(
-        @Path("id_day") id_day:  String,
+        @Path("id_day") id_day: String,
         @Field("name") name: String,
         @Field("location") location: String,
         @Field("cost") cost: String,

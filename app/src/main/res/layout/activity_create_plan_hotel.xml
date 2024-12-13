@@ -5,14 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    tools:context=".view.createPlan.CreatePlanActivity">
-
+    tools:context=".view.createPlan.CreatePlanHotel">
 
     <!-- Back Button -->
     <ImageView
         android:id="@+id/backButton"
-        android:layout_width="24dp"
+        android:layout_width="0dp"
         android:layout_height="24dp"
         android:src="@drawable/baseline_arrow_back_24"
         android:contentDescription="Back"
@@ -24,7 +22,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Plan"
+        android:text="Create Plan for Hotel"
         android:textSize="18sp"
         android:textColor="@color/primary_color"
         android:textStyle="bold"
@@ -35,30 +33,37 @@
         app:layout_constraintHorizontal_bias="0.5" />
 
     <TextView
-        android:id="@+id/txt_name"
+        android:id="@+id/tvNamePlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="Select Your Plan"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/primary_color"
-        android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Name Input -->
-    <EditText
-        android:id="@+id/planName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputNamePlanLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="What's your plan name?"
-        android:backgroundTint="#D6E4E1"
-        android:padding="12dp"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/txt_name"
+        android:layout_marginTop="10dp"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        app:placeholderText="Select your plan"
+        app:layout_constraintTop_toBottomOf="@id/tvNamePlan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <AutoCompleteTextView
+            android:id="@+id/inputNameSelectEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            app:simpleItems="@array/simple_items"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Start Date Label -->
     <TextView
@@ -66,10 +71,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start Date"
+        android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:textColor="@color/primary_color"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/planName"
+        app:layout_constraintTop_toBottomOf="@id/inputNamePlanLayout"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Start Date Input -->
@@ -117,6 +123,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPlans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/inputNamePlanLayout"/>
+
     <!-- Save Button -->
     <Button
         android:id="@+id/saveButton"
@@ -141,4 +154,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

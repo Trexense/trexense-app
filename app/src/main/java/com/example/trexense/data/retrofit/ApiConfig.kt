@@ -23,6 +23,7 @@ class ApiConfig {
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(authInterceptor)
+//                .retryOnConnectionFailure(true)
                 .build()
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://trexense.vercel.app/")

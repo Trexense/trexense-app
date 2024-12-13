@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Snackbar
+import androidx.core.net.ParseException
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
+import kotlin.text.format
 
 class DetailEvent : AppCompatActivity() {
     private lateinit var binding: ActivityDetailEventBinding
@@ -79,31 +81,42 @@ class DetailEvent : AppCompatActivity() {
 
                 val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
                 binding.tvPrice.text = formatter.format(event.price)
+                Log.d(TAG, "GET DETAIL EVENT : $event ")
                 val title = event.title
-                val eventStartDate = event.startDate
-                val eventEndDate = event.validUntil
                 binding.tvNameEvent.text = title
-                val startDate = formatDate(eventStartDate)
-                val endDate = formatDate(eventEndDate)
-                binding.tvStartDate.text = startDate
-                binding.tvEndDate.text = endDate
                 binding.tvAddress.text = event.location
                 binding.tvSocialMedia.text = event.targetUrl
                 binding.tvDescription.text = event.description
+                val eventStartDate = event.startDate
+                val eventEndDate = event.validUntil
+                if (eventStartDate != null && eventEndDate != null) {
+                    val startDate = formatDate(eventStartDate!!)
+                    val endDate = formatDateValidUntil(eventEndDate)
+                    binding.tvStartDate.text = startDate
+                    binding.tvEndDate.text = endDate
 
-                binding.btnSavePlan.setOnClickListener {
-                    AlertDialog.Builder(this).apply {
-                        setMessage("Do you want to add this ${event.title} to the plan ?")
-                        setPositiveButton("Add Plan") {_, _ ->
-                            createPlan(title, eventStartDate, eventEndDate)
+                    val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    val outputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    val date = inputFormat.parse(eventStartDate)
+                    val inputStartDate = outputFormat.format(date!!)
+
+                    binding.btnSavePlan.setOnClickListener {
+                        AlertDialog.Builder(this).apply {
+                            setMessage("Do you want to add this ${event.title} to the plan ?")
+                            setPositiveButton("Add Plan") {_, _ ->
+                                createPlan(title, inputStartDate.toString(), eventEndDate.toString())
+                            }
+                            setNegativeButton("Cancel") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            create()
+                            show()
                         }
-                        setNegativeButton("Cancel") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        create()
-                        show()
                     }
                 }
+
+
+
             } else {
                 Log.d(TAG, "Data Detail event NULL ")
             }
@@ -116,7 +129,7 @@ class DetailEvent : AppCompatActivity() {
 
     private fun createPlan(title: String?, eventStartDate: String?, eventEndDate: String?) {
         if (title !=null && eventStartDate != null && eventEndDate != null) {
-            viewModel.createPlan(title, eventStartDate, eventEndDate)
+            viewModel.createPlan(title, eventStartDate.toString(), eventEndDate.toString())
             observeViewModel()
         } else {
             Log.d("DetailEvent", "Gagal Create Plan: ")
@@ -133,22 +146,39 @@ class DetailEvent : AppCompatActivity() {
                 is Result.Loading -> showLoading(true)
                 is Result.Error -> Toast.makeText(this, result.error, Toast.LENGTH_LONG).show()
                 is Result.Success -> {
-                        val fragmentPlan = PlanFragment()
-                        supportFragmentManager.beginTransaction()
-                            .replace(binding.fragmentContainer.id, fragmentPlan)
-                            .addToBackStack(null)
-                            .commit()
                     Toast.makeText(this, "Your event has been add in plan", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-    private fun formatDate(schedule: String?): String{
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val date = schedule?.let { inputFormat.parse(it) }
-        val outputFormat = SimpleDateFormat("EEEE, d MMMM yyyy", Locale("id"))
-        return outputFormat.format(date!!)
+    private fun formatDate(schedule: String): String{
+                val inputFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("EEEE, d MMMM yyyy", Locale("id", "ID"))
+
+        return try {
+            val date = inputFormat.parse(schedule)
+            outputFormat.format(date!!)
+        } catch (e: ParseException) {
+            // Tangani exception, misalnya tampilkan pesan error atau kembalikan string kosong
+            Log.e("DetailEvent", "Error parsing date: ${e.message}")
+            ""
+        }
+
+    }
+
+    private fun formatDateValidUntil(schedule: String): String{
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEEE, d MMMM yyyy",  Locale("id", "ID"))
+
+        return try {
+            val date = inputFormat.parse(schedule)
+            outputFormat.format(date!!)
+        } catch (e: ParseException) {
+            // Tangani exception, misalnya tampilkan pesan error atau kembalikan string kosong
+            Log.e("DetailEvent", "Error parsing date: ${e.message}")
+            ""
+        }
 
     }
 

@@ -1,38 +1,54 @@
 package com.example.trexense.view.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.trexense.data.models.HotelItem
-import com.example.trexense.data.models.ImageItem
+import com.bumptech.glide.request.RequestOptions
+import com.example.trexense.R
+import com.example.trexense.data.response.DataHotel
 import com.example.trexense.databinding.ItemHotelBinding
-import com.example.trexense.databinding.SliderItemBinding
-import com.example.trexense.view.adapter.ImageAdapter.DiffCallback
+import com.example.trexense.view.createPlan.CreatePlanHotel
+import com.example.trexense.view.main.home.DetailHotel
+import java.text.NumberFormat
+import java.util.Locale
 
-class ListHotelAdapter : ListAdapter<HotelItem, ListHotelAdapter.ViewHolder>(ListHotelAdapter.DiffCallback()) {
-    class DiffCallback : DiffUtil.ItemCallback<HotelItem>(){
-        override fun areItemsTheSame(oldItem: HotelItem, newItem: HotelItem): Boolean {
+class ListHotelAdapter : ListAdapter<DataHotel, ListHotelAdapter.ViewHolder>(ListHotelAdapter.DiffCallback()) {
+    class DiffCallback : DiffUtil.ItemCallback<DataHotel>(){
+        override fun areItemsTheSame(oldItem: DataHotel, newItem: DataHotel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: HotelItem, newItem: HotelItem): Boolean {
+        override fun areContentsTheSame(oldItem: DataHotel, newItem: DataHotel): Boolean {
             return oldItem == newItem
         }
 
     }
     class ViewHolder(val binding: ItemHotelBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bindData(item: HotelItem){
-//            Glide.with(itemView)
-//                .load(item.image)
-//                .into(binding.ivHotel)
-            item.image?.let { binding.ivHotel.setImageResource(it) }
+        fun bindData(item: DataHotel){
+            Glide.with(itemView)
+                .load(item.imageUrl)
+                .centerCrop()
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                .into(binding.ivHotel)
+//            item.image?.let { binding.ivHotel.setImageResource(it) }
+            val formatter = NumberFormat.getCurrencyInstance(Locale("id", "ID"))
             binding.tvTitleHotel.text = item.name
-            binding.tvPrice.text = item.price
-            binding.tvPlace.text = item.place
+            binding.tvPrice.text = formatter.format(item.cost)
+            binding.tvPlace.text = item.address
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailHotel::class.java)
+                intent.putExtra(DetailHotel.DATA_HOTEL, item.hotelId)
+                itemView.context.startActivity(intent)
+            }
+
+            binding.btnCreatePlan.setOnClickListener {
+                itemView.context.startActivity(Intent(itemView.context, CreatePlanHotel::class.java))
+            }
         }
 
     }

@@ -12,6 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/primary_color"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <ImageView
             android:id="@+id/iv_detail_hotel"
             android:layout_width="0dp"
@@ -21,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/hotel_list" />
+            tools:srcCompat="@drawable/hotel_list" />
 
         <ImageView
             android:id="@+id/ic_back"
@@ -52,43 +64,60 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_semibold"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@id/tv_name_hotel"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_name_hotel"
             tools:text="Rp. 500.000 / Night" />
 
+        <ImageView
+            android:id="@+id/ic_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:srcCompat="@drawable/location_on" />
+
+        <TextView
+            android:id="@+id/tv_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            app:layout_constraintStart_toEndOf="@id/ic_location"
+            app:layout_constraintTop_toTopOf="@id/ic_location"
+            app:layout_constraintBottom_toBottomOf="@id/ic_location"
+            tools:text="Jl. Pantai Kuta No.32, Legian, Kec. Kuta, Kabupaten Badung, Bali 80361" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewEvent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:layout_margin="10dp"
             android:padding="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="8dp"
-            app:layout_constraintEnd_toEndOf="@id/tv_price"
-            app:layout_constraintStart_toStartOf="@id/tv_price"
-            app:layout_constraintTop_toBottomOf="@id/tv_price">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_place">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linear_location"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:padding="10dp">
-
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"
-                    android:indeterminateTint="@color/primary_color"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/itemOrderListHotel"
@@ -98,7 +127,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/item_detail_hotel"/>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -118,10 +146,11 @@
             tools:text="@string/text_desc" />
 
         <Button
-            android:id="@+id/btn_save_plan"
+            android:id="@+id/btnCreatePlan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Save to plan"
+            android:visibility="gone"
+            android:text="Save to Plan"
             android:backgroundTint="@color/primary_color"
             app:cornerRadius="2dp"
             android:layout_marginStart="10dp"
