@@ -59,37 +59,6 @@ class EventFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val eventList = arrayListOf(
-//            EventItem(
-//                id = "1",
-//                name = "Event 1",
-//                price = "Rp. 540.000, 00",
-//                place = "Denpasar, Bali",
-//                image = resources.getIdentifier("img_event", "drawable", context?.packageName)
-//            ),
-//            EventItem(
-//                id = "2",
-//                name = "Event 2",
-//                price = "Rp. 800.000, 00",
-//                place = "Denpasar, Bali",
-//                image = resources.getIdentifier("image1", "drawable", context?.packageName)
-//            ),
-//            EventItem(
-//                id = "3",
-//                name = "Event 3",
-//                price = "Rp. 1000.000, 00",
-//                place = "Denpasar, Bali",
-//                image = resources.getIdentifier("image2", "drawable", context?.packageName)
-//            ),
-//            EventItem(
-//                id = "3",
-//                name = "Event 4",
-//                price = "Rp. 1000.000, 00",
-//                place = "Denpasar, Bali",
-//                image = resources.getIdentifier("image3", "drawable", context?.packageName)
-//            )
-//        )
-
         eventAdapter = ListEventAdapter()
         viewModel.isLoading.observe(viewLifecycleOwner) { value ->
             showLoading(value)
@@ -104,62 +73,7 @@ class EventFragment : Fragment() {
             }
         }
 
-        binding.addEvent.setOnClickListener {
-            val intent = Intent(requireActivity(), CreateEventActivity::class.java)
-            startActivity(intent)
-        }
         loadDataEvent()
-
-//        viewModel.getSession().observe(viewLifecycleOwner) { user ->
-//            Log.d("EventFragment", "cek token : ${user.token} ")
-//            if (!user.isLogin || user.token.isEmpty()) {
-//                startActivity(Intent(requireActivity(), PageWelcome::class.java))
-//            } else {
-//                if (user.token.isNotEmpty()) {
-//
-//                    viewModel.getListEvent(user.token)
-//
-//                    viewModel.dataevents.observe(viewLifecycleOwner) { events ->
-//                        if (events.isNotEmpty() && events != null) {
-//                            binding.rvHotel.apply {
-//                                layoutManager = GridLayoutManager(requireActivity(), 2)
-//                                setHasFixedSize(true)
-//                                adapter = eventAdapter
-//                            }
-//                            eventAdapter.submitList(events)
-//                        } else {
-//                            Log.d("EventFragment", "getData: event data null ")
-//                        }
-//                    }
-//
-//                } else {
-//                    startActivity(Intent(requireActivity(), PageWelcome::class.java))
-//                }
-//            }
-//        }
-
-//        setupRecyclerView()
-
-
-//                    viewLifecycleOwner.lifecycleScope.launch {
-//                        viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-//
-//                            binding.progressBar.visibility = View.VISIBLE
-//                            try {
-//                                viewModel.getEventPager()
-//                                    .cachedIn(viewLifecycleOwner.lifecycleScope)
-//                                    .collect { pagingData ->
-//                                        Log.d("EventFragment", "pagingData : $pagingData ")
-//                                        eventAdapter.submitData(pagingData)
-//                                    }
-//                            } catch (e: Exception) {
-//                                Log.e("EventFragment", "Error gettis events: ${e.message}", e)
-//                            } finally {
-//                                binding.progressBar.visibility = View.GONE
-//                            }
-//                        }
-//                    }
-
 
     }
 
