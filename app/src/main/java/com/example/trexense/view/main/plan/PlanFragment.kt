@@ -53,10 +53,10 @@ class PlanFragment : Fragment() {
             val intent = Intent(requireContext(), CreatePlanActivity::class.java)
             startActivity(intent)
         }
-        binding.btnCreate.setOnClickListener {
-            val intent = Intent(requireContext(), CreatePlanActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.btnCreate.setOnClickListener {
+//            val intent = Intent(requireActivity(), CreatePlanActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun observeViewModel() {
@@ -74,7 +74,7 @@ class PlanFragment : Fragment() {
                     binding.rcPlan.visibility = View.VISIBLE
                     binding.imgPlan.visibility = View.GONE
                     binding.txtEmpty.visibility = View.GONE
-                    binding.btnCreate.visibility = View.GONE
+//                    binding.btnCreate.visibility = View.GONE
                 }
             }
         }

@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hotel Name"
+            android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:textSize="14sp"
             android:paddingBottom="4dp" />
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Hotel Address"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="12sp" />
         </LinearLayout>
 
@@ -51,8 +53,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:src="@drawable/baseline_attach_money_24"
+            <ImageView android:src="@drawable/baseline_attach_money_24"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="8dp"
@@ -63,6 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="200"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/poppins_medium"
                 android:textSize="12sp" />
         </LinearLayout>
 
