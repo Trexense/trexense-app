@@ -22,6 +22,7 @@ import com.example.trexense.view.PageWelcome
 import com.example.trexense.view.ViewModelFactory
 import com.example.trexense.view.adapter.ListEventAdapter
 import com.example.trexense.view.adapter.ListHotelAdapter
+import com.example.trexense.view.main.createEvent.CreateEventActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -103,6 +104,10 @@ class EventFragment : Fragment() {
             }
         }
 
+        binding.addEvent.setOnClickListener {
+            val intent = Intent(requireActivity(), CreateEventActivity::class.java)
+            startActivity(intent)
+        }
         loadDataEvent()
 
 //        viewModel.getSession().observe(viewLifecycleOwner) { user ->

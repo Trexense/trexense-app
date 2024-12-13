@@ -6,11 +6,12 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 class ApiConfig {
     companion object {
         fun getApiService(token: String = ""): ApiService {
-            Log.d("ApiConfig", "getApiServiceToken: ${token} ")
+            Log.d("ApiConfig", "getApiServiceToken: $token")
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val authInterceptor = Interceptor { chain ->
@@ -23,10 +24,12 @@ class ApiConfig {
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(authInterceptor)
-//                .retryOnConnectionFailure(true)
+                .connectTimeout(20, TimeUnit.SECONDS) // Timeout untuk koneksi
+                .readTimeout(20, TimeUnit.SECONDS)    // Timeout untuk membaca data
+                .writeTimeout(20, TimeUnit.SECONDS)   // Timeout untuk menulis data
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://trexense.vercel.app/")
+                .baseUrl("https://trexense-backend-832972421072.asia-southeast2.run.app/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

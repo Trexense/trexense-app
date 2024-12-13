@@ -43,6 +43,7 @@ class ListHotelAdapter : ListAdapter<DataHotel, ListHotelAdapter.ViewHolder>(Lis
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailHotel::class.java)
                 intent.putExtra(DetailHotel.DATA_HOTEL, item.hotelId)
+                intent.putExtra("HOTEL_ID_SAVE", item.id)
                 itemView.context.startActivity(intent)
             }
 

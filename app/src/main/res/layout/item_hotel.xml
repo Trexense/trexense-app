@@ -115,6 +115,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Save to Plan"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:layout_marginTop="10dp"

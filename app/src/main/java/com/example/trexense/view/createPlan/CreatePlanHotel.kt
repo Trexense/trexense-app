@@ -2,24 +2,19 @@ package com.example.trexense.view.createPlan
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.trexense.R
+import com.example.trexense.data.response.DataPlans
 import com.example.trexense.data.utils.Result
-import com.example.trexense.databinding.ActivityCreatePlanBinding
 import com.example.trexense.databinding.ActivityCreatePlanHotelBinding
 import com.example.trexense.view.EventViewModelFactory
 import com.example.trexense.view.adapter.PlanHotelAdapter
 import com.example.trexense.view.main.plan.PlanViewModel
-import kotlinx.coroutines.launch
 
 class CreatePlanHotel : AppCompatActivity() {
 
@@ -27,52 +22,69 @@ class CreatePlanHotel : AppCompatActivity() {
     private val viewModel: PlanViewModel by viewModels {
         EventViewModelFactory.getInstance(this)
     }
+    private var selectedPlanId: String? = null // Untuk menyimpan ID plan yang dipilih
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreatePlanHotelBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener((binding.main)){ v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        val hotelId = intent.getStringExtra("HOTEL_ID")
         viewModel.getPlans()
         observeViewModel()
 
-
-
+        binding.backButton.setOnClickListener { finish() }
+        binding.saveButton.setOnClickListener {
+            if (selectedPlanId != null) {
+                viewModel.saveHotel(selectedPlanId!!, hotelId.toString())
+                Toast.makeText(this, "Hotel linked to plan: $selectedPlanId", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Please select a plan first.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
-            viewModel.isLoading.observe(this@CreatePlanHotel) { isLoading ->
-                showLoading(isLoading)
-            }
-            viewModel.plansResult.observe(this@CreatePlanHotel) { result ->
-                when (result) {
-                    is Result.Loading -> showLoading(true)
-                    is Result.Error -> Toast.makeText(this@CreatePlanHotel, result.error, Toast.LENGTH_LONG)
-                        .show()
-                    is Result.Success -> {
-                        val plansNames = result.data.data.map { it.name }
-//                        val adapterPlanHotel = PlanHotelAdapter(plansNames)
-//                        binding.rvPlans.apply {
-//                            layoutManager = LinearLayoutManager(this@CreatePlanHotel)
-//                            adapter = adapterPlanHotel
-//                        }
-
-                        // Buat ArrayAdapter
-                        val adapter = ArrayAdapter(this@CreatePlanHotel, R.layout.item_plans_hotel, plansNames)
-                        val autoCompleteTextView = binding.inputNameSelectEdit
-                        autoCompleteTextView.setAdapter(adapter)
-                    }
+        viewModel.isLoading.observe(this) { isLoading ->
+            showLoading(isLoading)
+        }
+        viewModel.plansResult.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoading(true)
+                is Result.Error -> Toast.makeText(this, result.error, Toast.LENGTH_LONG).show()
+                is Result.Success -> {
+                    setupRecyclerView(result.data.data) // Panggil RecyclerView setup
+                    showLoading(false)
                 }
             }
         }
+        viewModel.saveResult.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> showLoading(true)
+                is Result.Error -> Toast.makeText(this, result.error, Toast.LENGTH_LONG).show()
+                is Result.Success -> {
+                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            }
+        }
+    }
 
+    private fun setupRecyclerView(plans: List<DataPlans>) {
+        val adapter = com.example.trexense.view.main.plan.PlanHotelAdapter(plans) { selectedPlan ->
+            selectedPlanId = selectedPlan.id
+            binding.inputNameSelectEdit.setText("${selectedPlan.name}")
+        }
+        binding.rvPlan.apply {
+            layoutManager = LinearLayoutManager(this@CreatePlanHotel)
+            this.adapter = adapter
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {
